@@ -1,0 +1,13 @@
+{
+  "network": "sepolia",
+  "chainId": "11155111",
+  "deployer": "0x8Aa810a962284933eEbA38AB2e56473012eFff43",
+  "timestamp": "2025-10-25T19:20:02.722Z",
+  "contracts": {
+    "FHEBridge": "0x17A4E46178cd1b451316E72811200E3298989346",
+    "Vault": "0xA727b24dCE7fE9cE07E55B80ef3222a322e583E5",
+    "MarketRegistry": "0xb2A694a97B4DD06B5851b8e855c78417E57D0763",
+    "JobManager": "0x8a7d1278AD616F2314805d48cDfab1ec9b16b8DA",
+    "Slashing": "0x7ab784be06e4cb574eb5de6368C900968F483bA2"
+  }
+}
