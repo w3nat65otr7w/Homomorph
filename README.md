@@ -205,44 +205,69 @@ function processEncryptedSalary(euint32 encryptedAmount) public {
 
 ## 🚀 Roadmap
 
-### Phase 1: Foundation (✅ Complete)
+### Phase 1: Foundation & Core Infrastructure
+**Status: ✅ Complete**
+
 - [x] FHE-enabled smart contracts
 - [x] Basic marketplace UI
 - [x] Numeric computation support
-- [x] Wallet integration (multi-wallet)
+- [x] Multi-wallet integration (MetaMask, OKX, Coinbase)
 - [x] Sepolia testnet deployment
-- [x] Job lifecycle management
+- [x] Complete job lifecycle management
+- [x] Provider staking and reputation system
+- [x] Escrow and dispute mechanisms
 
-### Phase 2: Code Execution (Q2 2025)
-- [ ] **Code Upload Support** - Python, R, Julia scripts
-- [ ] **Sandboxed Execution** - Secure runtime environments
-- [ ] **Package Management** - NumPy, Pandas, TensorFlow support
-- [ ] **Result Verification** - Zero-knowledge proofs for correctness
+### Phase 2: Code Execution & Advanced Computation
+**Status: 🔄 In Planning**
 
-### Phase 3: Scientific Computing (Q3 2025)
-- [ ] **Physics Simulations** - Molecular dynamics, quantum mechanics
+- [ ] **Code Upload Support** - Python, R, Julia scripts with encrypted execution
+- [ ] **Sandboxed Execution** - Secure isolated runtime environments
+- [ ] **Package Management** - Support for NumPy, Pandas, TensorFlow, PyTorch
+- [ ] **Result Verification** - Zero-knowledge proofs for computation correctness
+- [ ] **Batch Processing** - Submit multiple jobs in single transaction
+- [ ] **Job Templates** - Pre-configured computation templates for common tasks
+
+### Phase 3: Scientific Computing & Research Applications
+**Status: 📋 Planned**
+
+- [ ] **Physics Simulations** - Molecular dynamics, quantum mechanics computations
 - [ ] **Astronomy Computing** - Star cataloging, gravitational wave analysis
-- [ ] **Bioinformatics** - Genome sequencing, protein folding
-- [ ] **Climate Modeling** - Weather prediction, climate simulations
+- [ ] **Bioinformatics** - Private genome sequencing, protein folding predictions
+- [ ] **Climate Modeling** - Weather prediction, climate simulation workloads
+- [ ] **Computational Chemistry** - Drug discovery, molecular modeling
+- [ ] **Research Collaboration Tools** - Multi-party secure computation
 
-### Phase 4: Specialized Hardware (Q4 2025)
-- [ ] **TPUs** - Google Tensor Processing Units for AI/ML
-- [ ] **FPGAs** - Custom hardware acceleration
-- [ ] **Quantum Simulators** - Quantum algorithm development
-- [ ] **High-Memory Systems** - 1TB+ RAM for big data
+### Phase 4: Specialized Hardware & Performance
+**Status: 📋 Planned**
 
-### Phase 5: Domain-Specific Platforms (2026)
-- [ ] **MedCompute** - HIPAA-compliant medical data analysis
-- [ ] **FinanceML** - SEC-compliant financial modeling
-- [ ] **GenomicsCloud** - Private genomic research platform
-- [ ] **AITrainingHub** - Confidential model training marketplace
+- [ ] **TPU Support** - Google Tensor Processing Units for AI/ML workloads
+- [ ] **FPGA Integration** - Custom hardware acceleration for specific algorithms
+- [ ] **Quantum Simulators** - Quantum algorithm development and testing
+- [ ] **High-Memory Systems** - 1TB+ RAM nodes for big data processing
+- [ ] **GPU Clusters** - Multi-GPU setups for distributed training
+- [ ] **Edge Computing** - Low-latency edge nodes for real-time processing
 
-### Phase 6: Mainnet & Enterprise (2026+)
-- [ ] Ethereum mainnet deployment
-- [ ] Enterprise SLA tiers
-- [ ] Dedicated hardware pools
-- [ ] Multi-chain support (Polygon, Arbitrum)
-- [ ] Fiat on-ramp integration
+### Phase 5: Domain-Specific Platforms & Verticals
+**Status: 📋 Planned**
+
+- [ ] **MedCompute** - HIPAA-compliant medical data analysis platform
+- [ ] **FinanceML** - SEC-compliant financial modeling and risk analysis
+- [ ] **GenomicsCloud** - Private genomic research and personalized medicine
+- [ ] **AITrainingHub** - Confidential AI model training marketplace
+- [ ] **LegalTech** - Privacy-preserving legal document analysis
+- [ ] **AdTech** - Privacy-first advertising analytics without user tracking
+
+### Phase 6: Enterprise & Mainnet Production
+**Status: 📋 Planned**
+
+- [ ] **Ethereum Mainnet** - Production deployment on Ethereum L1
+- [ ] **Layer 2 Support** - Polygon, Arbitrum, Optimism integration
+- [ ] **Enterprise SLA Tiers** - Guaranteed uptime and priority processing
+- [ ] **Dedicated Hardware Pools** - Reserved compute for enterprise clients
+- [ ] **Fiat On-Ramp** - Credit card and bank transfer payment options
+- [ ] **API & SDKs** - Developer tools for easy integration
+- [ ] **Compliance Certifications** - SOC 2, ISO 27001, GDPR compliance
+- [ ] **White-Label Solutions** - Custom-branded marketplaces for partners
 
 ---
 
