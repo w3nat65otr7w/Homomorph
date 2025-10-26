@@ -15,7 +15,7 @@ import { useJobManager } from '@/hooks/useJobManager';
 import { useFHEBridge } from '@/hooks/useFHEBridge';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Calendar, DollarSign, FileText, Lock } from 'lucide-react';
-import { useAccount, usePublicClient } from 'wagmi';
+import { useAccount, usePublicClient, useWalletClient } from 'wagmi';
 import { JOB_MANAGER_ADDRESS } from '@/lib/contracts/addresses';
 import { encryptComputationData } from '@/lib/fhe';
 
@@ -40,6 +40,7 @@ export function RentHardwareDialog({ open, onOpenChange, hardware }: RentHardwar
   const { toast } = useToast();
   const { isConnected, address: userAddress } = useAccount();
   const publicClient = usePublicClient();
+  const { data: walletClient } = useWalletClient();
 
   const pricePerHour = parseFloat(hardware.price.replace(' ETH/hr', ''));
   const totalPrice = (pricePerHour * parseFloat(hours || '0')).toFixed(4);
@@ -76,11 +77,21 @@ export function RentHardwareDialog({ open, onOpenChange, hardware }: RentHardwar
         throw new Error('User address not available');
       }
 
+      // Get wallet provider for FHE encryption
+      const walletProvider = walletClient?.transport || window.ethereum || (window as any).okxwallet;
+      console.log('🔐 Wallet provider for FHE:', {
+        hasWalletClient: !!walletClient,
+        hasEthereum: !!window.ethereum,
+        hasOKX: !!(window as any).okxwallet,
+        provider: walletProvider
+      });
+
       // Use FHE SDK to encrypt the computation data
       const encrypted = await encryptComputationData(
         computationData,
         JOB_MANAGER_ADDRESS,
-        userAddress
+        userAddress,
+        walletProvider
       );
 
       console.log('✅ FHE Encryption complete:', {
@@ -113,16 +124,41 @@ export function RentHardwareDialog({ open, onOpenChange, hardware }: RentHardwar
         hash: txHash as `0x${string}`
       });
 
-      // Parse JobPosted event to get jobId
-      const jobPostedEvent = receipt.logs.find((log: any) =>
-        log.address.toLowerCase() === JOB_MANAGER_ADDRESS.toLowerCase()
-      );
+      console.log('📋 Transaction receipt:', receipt);
+      console.log('📋 All logs:', receipt.logs);
 
-      if (!jobPostedEvent || !jobPostedEvent.topics[1]) {
+      // Parse JobPosted event to get jobId
+      // Event signature: JobPosted(uint256 indexed jobId, address indexed consumer, address indexed provider, bytes32 inputCommitment, uint256 priceWei, uint256 deadline)
+      const jobPostedEvent = receipt.logs.find((log: any) => {
+        const isCorrectContract = log.address.toLowerCase() === JOB_MANAGER_ADDRESS.toLowerCase();
+        console.log('🔍 Checking log:', {
+          address: log.address,
+          topics: log.topics,
+          isCorrectContract
+        });
+        return isCorrectContract;
+      });
+
+      if (!jobPostedEvent) {
+        console.error('❌ No event found from JobManager contract');
+        console.error('Expected address:', JOB_MANAGER_ADDRESS);
+        console.error('All log addresses:', receipt.logs.map((l: any) => l.address));
         throw new Error('Could not find JobPosted event in transaction');
       }
 
+      console.log('✅ Found JobPosted event:', jobPostedEvent);
+
+      // topics[0] = event signature hash
+      // topics[1] = jobId (first indexed param)
+      // topics[2] = consumer address (second indexed param)
+      // topics[3] = provider address (third indexed param)
+      if (!jobPostedEvent.topics || jobPostedEvent.topics.length < 2) {
+        console.error('❌ Invalid topics:', jobPostedEvent.topics);
+        throw new Error('JobPosted event has invalid topics');
+      }
+
       const jobId = parseInt(jobPostedEvent.topics[1], 16);
+      console.log('🎯 Parsed jobId:', jobId);
 
       // Step 4: Submit the full FHE encrypted input to FHEBridge
       toast({

@@ -53,14 +53,32 @@ const loadSdk = async (): Promise<any> => {
   return sdkPromise;
 };
 
-export async function initializeFHE(): Promise<any> {
+export async function initializeFHE(provider?: any): Promise<any> {
   if (fheInstance) {
     return fheInstance;
   }
 
-  if (typeof window === 'undefined' || !window.ethereum) {
-    throw new Error('Ethereum provider not found');
+  if (typeof window === 'undefined') {
+    throw new Error('FHE SDK requires browser environment');
   }
+
+  // Get Ethereum provider from multiple sources
+  // Priority: passed provider > window.ethereum > window.okxwallet > window.coinbaseWalletExtension
+  const ethereumProvider = provider ||
+    window.ethereum ||
+    (window as any).okxwallet?.provider ||
+    (window as any).okxwallet ||
+    (window as any).coinbaseWalletExtension;
+
+  if (!ethereumProvider) {
+    throw new Error('Ethereum provider not found. Please connect your wallet first.');
+  }
+
+  console.log('🔌 Using Ethereum provider:', {
+    isOKX: !!(window as any).okxwallet,
+    isMetaMask: !!(window.ethereum as any)?.isMetaMask,
+    provider: ethereumProvider
+  });
 
   const sdk = await loadSdk();
   if (!sdk) {
@@ -72,7 +90,7 @@ export async function initializeFHE(): Promise<any> {
   // Use the built-in SepoliaConfig from the SDK
   const config = {
     ...sdk.SepoliaConfig,
-    network: window.ethereum,
+    network: ethereumProvider,
   };
 
   fheInstance = await sdk.createInstance(config);
@@ -108,9 +126,10 @@ export async function encryptUint32(
 export async function encryptComputationData(
   data: string,
   contractAddress: string,
-  userAddress: string
+  userAddress: string,
+  provider?: any
 ): Promise<{ handle: string; proof: string; numericValue: number }> {
-  const fhe = await initializeFHE();
+  const fhe = await initializeFHE(provider);
   const checksumAddress = getAddress(contractAddress);
 
   // Convert string to numeric value for FHE encryption
