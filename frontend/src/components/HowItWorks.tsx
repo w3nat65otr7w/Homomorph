@@ -58,24 +58,19 @@ const HowItWorks = () => {
         <div className="max-w-5xl mx-auto mb-20">
           <Card className="p-2 bg-card/50 backdrop-blur-sm border-primary/20">
             <div className="relative aspect-video bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg overflow-hidden">
-              {/* Placeholder for video - will be replaced */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center space-y-4">
-                  <div className="w-20 h-20 mx-auto rounded-full bg-primary/20 flex items-center justify-center">
-                    <Rocket className="w-10 h-10 text-primary" />
-                  </div>
-                  <div className="text-lg font-semibold text-muted-foreground">
-                    Demo Video Coming Soon
-                  </div>
-                  <p className="text-sm text-muted-foreground max-w-md mx-auto">
-                    Watch how Homomorph enables secure computation on encrypted data
-                  </p>
-                </div>
-              </div>
-              {/* Video will be inserted here */}
-              {/* <video src="path-to-demo-video.mp4" controls className="w-full h-full object-cover" /> */}
+              <video
+                src="/test_sumbit.mp4"
+                controls
+                className="w-full h-full object-contain bg-black"
+                poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='%23000' width='100' height='100'/%3E%3C/svg%3E"
+              >
+                Your browser does not support the video tag.
+              </video>
             </div>
           </Card>
+          <p className="text-center text-sm text-muted-foreground mt-4">
+            Watch the demo: Encrypted computation job submission with FHE on Sepolia testnet
+          </p>
         </div>
 
         {/* Workflow Steps */}
