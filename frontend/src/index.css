@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+
+    --card: 240 10% 6%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 6%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 263 70% 50%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 263 70% 60%;
+
+    --secondary: 240 5% 15%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 5% 20%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 193 76% 50%;
+    --accent-foreground: 0 0% 100%;
+    --accent-glow: 193 76% 60%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 10% 15%;
+    --input: 240 10% 15%;
+    --ring: 263 70% 50%;
+
+    --radius: 0.75rem;
+
+    --gradient-primary: linear-gradient(135deg, hsl(263 70% 50%), hsl(193 76% 50%));
+    --gradient-secondary: linear-gradient(180deg, hsl(240 10% 3.9%), hsl(240 10% 8%));
+    --gradient-accent: linear-gradient(90deg, hsl(263 70% 50% / 0.1), hsl(193 76% 50% / 0.1));
+    
+    --shadow-glow: 0 0 40px hsl(263 70% 50% / 0.3);
+    --shadow-accent-glow: 0 0 40px hsl(193 76% 50% / 0.3);
+    --shadow-elegant: 0 20px 60px -10px hsl(263 70% 50% / 0.4);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    background: linear-gradient(180deg, hsl(240 10% 3.9%), hsl(240 10% 6%));
+    min-height: 100vh;
+  }
+}
+
+@layer utilities {
+  .glow-text {
+    text-shadow: 0 0 20px hsl(var(--primary) / 0.5);
+  }
+  
+  .glow-border {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+  }
+  
+  .glow-accent {
+    box-shadow: 0 0 30px hsl(var(--accent) / 0.4);
+  }
+}
